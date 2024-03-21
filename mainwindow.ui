@@ -21,6 +21,18 @@
        <enum>Qt::Horizontal</enum>
       </property>
       <widget class="QScrollArea" name="scrollArea">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="widgetResizable">
         <bool>true</bool>
        </property>
@@ -39,13 +51,67 @@
            <property name="text">
             <string>Driver</string>
            </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">paneButtonGroup</string>
+           </attribute>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pane_button_">
+          <widget class="QPushButton" name="pane_button_hmd">
            <property name="text">
-            <string>PushButton</string>
+            <string>HMD</string>
            </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">paneButtonGroup</string>
+           </attribute>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pane_button_screens">
+           <property name="text">
+            <string>Screen(s)</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">paneButtonGroup</string>
+           </attribute>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pane_button_controllers">
+           <property name="text">
+            <string>Controllers</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">paneButtonGroup</string>
+           </attribute>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pane_button_about">
+           <property name="text">
+            <string>About</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">paneButtonGroup</string>
+           </attribute>
           </widget>
          </item>
         </layout>
@@ -58,7 +124,7 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>TextLabel</string>
+         <string>There are no unsaved changes</string>
         </property>
        </widget>
       </item>
@@ -110,4 +176,7 @@
  </widget>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="paneButtonGroup"/>
+ </buttongroups>
 </ui>

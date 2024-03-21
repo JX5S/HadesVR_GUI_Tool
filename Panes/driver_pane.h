@@ -18,10 +18,15 @@ public:
 private slots:
     void on_button_steamvr_clicked();
 
+    void on_button_steamvr_driver_clicked();
+
+    void on_button_hadesvr_clicked();
+
 private:
     Ui::Driver_pane *ui;
     bool isSteamInstalled = false;
     bool isSteamVRInstalled = false;
+    QString SteamVR_drivers_folder = "";
 };
 
 #endif // DRIVER_PANE_H

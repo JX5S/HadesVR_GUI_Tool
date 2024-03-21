@@ -60,7 +60,7 @@
      <item>
       <widget class="QLabel" name="label_status_hadesvr">
        <property name="text">
-        <string>HadesVR is installed</string>
+        <string>HadesVR is not installed</string>
        </property>
       </widget>
      </item>
