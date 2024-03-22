@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QString>
+
 #include "Panes/Pane_class.h"
 
 QT_BEGIN_NAMESPACE
@@ -17,6 +19,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    QString hadesvr_settings_path = "";
 
 private slots:
     void on_pane_button_clicked(int id);

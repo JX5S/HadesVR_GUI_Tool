@@ -1,5 +1,6 @@
 #include "driver_pane.h"
 #include "ui_driver_pane.h"
+#include "mainwindow.h"
 
 #include <QDesktopServices>
 #include <QSettings>
