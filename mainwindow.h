@@ -2,8 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
-#include "Panes/driver_pane.h"
+#include "Panes/Pane_class.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,11 +19,12 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pane_button_driver_clicked();
     void on_pane_button_clicked(int id);
 
 private:
     Ui::MainWindow *ui;
     QWidget * CurrentContent;
+    QVector<Pane> panes;
 };
+
 #endif // MAINWINDOW_H

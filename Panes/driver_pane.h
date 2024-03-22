@@ -22,6 +22,10 @@ private slots:
 
     void on_button_hadesvr_clicked();
 
+    void on_pushButton_clicked();
+
+    void refresh();
+
 private:
     Ui::Driver_pane *ui;
     bool isSteamInstalled = false;

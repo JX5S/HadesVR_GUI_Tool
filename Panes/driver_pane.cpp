@@ -6,13 +6,26 @@
 #include <QDebug>
 #include <QString>
 #include <QFile>
+#include <QTimer>
 
 Driver_pane::Driver_pane(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Driver_pane)
 {
     ui->setupUi(this);
+    refresh();
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
+    timer->start(1000);
+}
 
+Driver_pane::~Driver_pane()
+{
+    delete ui;
+}
+
+void Driver_pane::refresh()
+{
     // SteamVR status section
     QSettings settings("HKEY_CURRENT_USER\\Software\\Valve\\Steam", QSettings::NativeFormat);
     QString steamExe = settings.value("SteamExe").toString();
@@ -28,6 +41,10 @@ Driver_pane::Driver_pane(QWidget *parent)
         }
         if (QFile::exists(SteamVR_drivers_folder + "/hadesvr/resources/settings/default.vrsettings")){
             ui->label_status_hadesvr->setText("HadesVR is probably installed");
+            ui->label_status_hadesvr->setToolTip("Only default.vrsettings file is actually checked - but if that is in the correct place, the rest should be too");
+        } else {
+            ui->label_status_hadesvr->setText("HadesVR is not installed");
+            ui->label_status_hadesvr->setToolTip("");
         }
     }
 
@@ -47,16 +64,11 @@ Driver_pane::Driver_pane(QWidget *parent)
     }
 
     // HadesVR Driver installation line
-    if (isSteamInstalled){
+    if (isSteamVRInstalled){
         ui->button_steamvr_driver->setDisabled(false);
+    } else {
+        ui->button_steamvr_driver->setDisabled(true);
     }
-
-
-}
-
-Driver_pane::~Driver_pane()
-{
-    delete ui;
 }
 
 void Driver_pane::on_button_steamvr_clicked()
@@ -79,5 +91,11 @@ void Driver_pane::on_button_steamvr_driver_clicked()
 void Driver_pane::on_button_hadesvr_clicked()
 {
     QDesktopServices::openUrl(QUrl("https://github.com/HadesVR/HadesVR/releases"));
+}
+
+
+void Driver_pane::on_pushButton_clicked()
+{
+    refresh();
 }
 
