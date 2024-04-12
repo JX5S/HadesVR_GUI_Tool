@@ -15,6 +15,9 @@ public:
     explicit controllers_pane(QWidget *parent = nullptr);
     ~controllers_pane();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::controllers_pane *ui;
 };
