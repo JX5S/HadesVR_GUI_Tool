@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>hmd_viewport.qml</file>
         <file>AnimatedEntity.qml</file>
+        <file>headset_model.mtl</file>
+        <file>headset_model.obj</file>
     </qresource>
 </RCC>

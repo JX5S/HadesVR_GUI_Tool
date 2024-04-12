@@ -1,5 +1,5 @@
 import Qt3D.Core 2.15
-import Qt3D.Render 2.15
+import Qt3D.Render 2.7
 import Qt3D.Input 2.0
 import Qt3D.Extras 2.15
 
@@ -8,7 +8,7 @@ import QtQuick 2.0 as QQ2
 
 Entity {
     id: sceneRoot
-    property RenderCapabilities capabilities : renderSettings.renderCapabilities
+//    property RenderCapabilities capabilities : renderSettings.renderCapabilities
 
     property bool validBounds: sphereMesh.implicitPointsValid
     property vector3d sphereMinPt: sphereMesh.implicitMinPoint
@@ -51,6 +51,11 @@ Entity {
         slices: 20
     }
 
+    Mesh {
+        id: hmdMesh
+        source: "headset_model.obj"
+    }
+
     Transform {
         id: torusTransform
         scale3D: Qt.vector3d(1.5, 1, 0.5)
@@ -59,7 +64,8 @@ Entity {
 
     Entity {
         id: torusEntity
-        components: [ torusMesh, material, torusTransform ]
+        // components: [ torusMesh, material, torusTransform ]
+        components: [ hmdMesh, material, torusTransform ]
     }
 
     SphereMesh {
