@@ -16,7 +16,6 @@ public:
     ~controllers_pane();
 
 private slots:
-    void on_pushButton_clicked();
 
 private:
     Ui::controllers_pane *ui;
