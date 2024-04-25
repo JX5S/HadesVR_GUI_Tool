@@ -19,7 +19,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    QString hadesvr_settings_path = "";
+
 
 private slots:
     void on_pane_button_clicked(int id);

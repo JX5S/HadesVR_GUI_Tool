@@ -12,6 +12,7 @@ SOURCES += \
     Panes/about_pane.cpp \
     Panes/controllers_pane.cpp \
     Panes/driver_pane.cpp \
+    Panes/generic_pane.cpp \
     Panes/hmd_pane.cpp \
     Panes/screens_pane.cpp \
     main.cpp \
@@ -22,8 +23,10 @@ HEADERS += \
     Panes/about_pane.h \
     Panes/controllers_pane.h \
     Panes/driver_pane.h \
+    Panes/generic_pane.h \
     Panes/hmd_pane.h \
     Panes/screens_pane.h \
+    include_ext/hidapi.h \
     mainwindow.h
 
 FORMS += \
@@ -34,6 +37,10 @@ FORMS += \
     Panes/screens_pane.ui \
     mainwindow.ui
 
+LIBS += \
+    # no idea why $$PWD is needed, but it doesn't compile without it for me. https://stackoverflow.com/questions/55513042/how-to-link-external-dlls-properly-in-qt-creator
+    $$PWD/dlls/hidapi.dll
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
@@ -42,3 +49,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     qml.qrc \
     resources.qrc
+
+DISTFILES += \
+    include_ext/hidapi.dll

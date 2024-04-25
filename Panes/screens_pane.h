@@ -3,17 +3,21 @@
 
 #include <QWidget>
 
+#include "generic_pane.h"
+
 namespace Ui {
 class screens_pane;
 }
 
-class screens_pane : public QWidget
+class screens_pane : public generic_pane
 {
     Q_OBJECT
 
 public:
     explicit screens_pane(QWidget *parent = nullptr);
     ~screens_pane();
+    void enable();
+    void disable();
 
 private:
     Ui::screens_pane *ui;

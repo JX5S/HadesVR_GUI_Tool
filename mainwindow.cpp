@@ -11,6 +11,8 @@
 #include <QVector>
 #include <QPair>
 #include <QIcon>
+#include <QGuiApplication>
+#include <QStyleHints>
 
 #define driver_btn_id 0
 #define hmd_btn_id 1
@@ -35,11 +37,12 @@ MainWindow::MainWindow(QWidget *parent)
         Pane(new about_pane(ui->stackedWidget), ui->pane_button_about, "About program", 4),
     };
 
-    for (Pane pane : panes){
-        ui->paneButtonGroup->setId(pane.pane_button, pane.id);
-        ui->stackedWidget->addWidget(pane.pane_widget);
-//        pane.pane_widget->hide();
+    for (auto pane = panes.begin(); pane != panes.end(); pane++){
+        ui->paneButtonGroup->setId(pane->pane_button, pane->id);
+        ui->stackedWidget->addWidget(pane->pane_widget);
     }
+
+    qDebug() << "Darkmode:" << (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
 
     ui->stackedWidget->setCurrentWidget(panes[0].pane_widget);
 }
@@ -49,8 +52,12 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
 void MainWindow::on_pane_button_clicked(int id)
 {
-    qDebug() << id;
+    static int old_id = 0;
+    panes[old_id].pane_widget->disable();
+    old_id = id;
     ui->stackedWidget->setCurrentWidget(panes[id].pane_widget);
+    panes[id].pane_widget->enable();
 }

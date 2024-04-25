@@ -8,16 +8,16 @@
 #include <QString>
 #include <QFile>
 #include <QTimer>
+#include <QFileDialog>
 
 Driver_pane::Driver_pane(QWidget *parent)
-    : QWidget(parent)
+    : generic_pane(parent)
     , ui(new Ui::Driver_pane)
 {
     ui->setupUi(this);
     refresh();
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
-    timer->start(1000);
+    connect(&this->timer, SIGNAL(timeout()), this, SLOT(refresh()));
+    this->enable();
 }
 
 Driver_pane::~Driver_pane()
@@ -42,10 +42,18 @@ void Driver_pane::refresh()
         }
         if (QFile::exists(SteamVR_drivers_folder + "/hadesvr/resources/settings/default.vrsettings")){
             ui->label_status_hadesvr->setText("HadesVR is probably installed");
-            ui->label_status_hadesvr->setToolTip("Only default.vrsettings file is actually checked - but if that is in the correct place, the rest should be too");
+            ui->label_status_hadesvr->setToolTip("Only default.vrsettings file is actually checked - but if that is in the correct place, the rest should be fine too");
+            if (!isHadesVRInstalled){
+                ui->settingsLineEdit->setText(SteamVR_drivers_folder + "/hadesvr/resources/settings/default.vrsettings");
+            }
+            isHadesVRInstalled = true;
         } else {
             ui->label_status_hadesvr->setText("HadesVR is not installed");
             ui->label_status_hadesvr->setToolTip("");
+            if (isHadesVRInstalled){
+                ui->settingsLineEdit->setText("");
+            }
+            isHadesVRInstalled = false;
         }
     }
 
@@ -98,5 +106,23 @@ void Driver_pane::on_button_hadesvr_clicked()
 void Driver_pane::on_pushButton_clicked()
 {
     refresh();
+}
+
+void Driver_pane::enable(){
+    qDebug() << "enable driver pane";
+    this->timer.start(1000);
+}
+void Driver_pane::disable(){
+    qDebug() << "disable driver pane";
+    this->timer.stop();
+}
+
+
+void Driver_pane::on_SettingSelectPushbutton_clicked()
+{
+    QString result = QFileDialog::getOpenFileName(this, tr("Select .vrsettings file"), SteamVR_drivers_folder, tr("VR settings file (*.vrsettings)"));
+    if (result != ""){
+        ui->settingsLineEdit->setText(result);
+    }
 }
 

@@ -45,7 +45,7 @@ Entity {
 
     Mesh {
         id: hmdMesh
-        source: "qrc:///resources/headset_model.obj"
+        source: "qrc:///resources/Stanford_Bunny_sample.stl"
     }
 
     Transform {

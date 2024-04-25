@@ -4,6 +4,5 @@
         <file>AnimatedEntity.qml</file>
         <file>resources/Stanford_Bunny_sample.stl</file>
         <file>resources/headset_model.mtl</file>
-        <file>resources/headset_model.obj</file>
     </qresource>
 </RCC>

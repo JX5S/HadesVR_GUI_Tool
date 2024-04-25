@@ -2,18 +2,21 @@
 #define ABOUT_PANE_H
 
 #include <QWidget>
+#include "generic_pane.h"
 
 namespace Ui {
 class about_pane;
 }
 
-class about_pane : public QWidget
+class about_pane : public generic_pane
 {
     Q_OBJECT
 
 public:
     explicit about_pane(QWidget *parent = nullptr);
     ~about_pane();
+    void enable();
+    void disable();
 
 private:
     Ui::about_pane *ui;
