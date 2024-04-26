@@ -11,51 +11,45 @@
 #include <QDebug>
 #include <algorithm>
 
+void Worker::doWork() {
+    auto handle = hid_enumerate(0,0);
+    auto orig_handle = handle;
 
-class Worker : public QObject
-{
-    //Q_OBJECT
-public:
-    Worker(){}
-    ~Worker(){}
-public slots:
-    void doWork() {
-        auto handle = hid_enumerate(0,0);
-        auto orig_handle = handle;
+    while (handle != NULL){
+        QString manufacturer = QString::fromWCharArray(handle->manufacturer_string);
+        QString product =  QString::fromWCharArray(handle->product_string);
+        QString serial_no = QString::fromWCharArray(handle->serial_number);
+        qDebug() << "PID: " << handle->product_id << "VID: " << handle->vendor_id << " Product: " << product << "By: " << manufacturer <<" Serial: " << serial_no;
+        handle = handle->next;
+    }
+    hid_free_enumeration(orig_handle);
 
-        while (handle != NULL){
-            QString manufacturer = QString::fromWCharArray(handle->manufacturer_string);
-            QString product =  QString::fromWCharArray(handle->product_string);
-            QString serial_no = QString::fromWCharArray(handle->serial_number);
-            qDebug() << "PID: " << handle->product_id << "VID: " << handle->vendor_id << " Product: " << product << "By: " << manufacturer <<" Serial: " << serial_no;
-            handle = handle->next;
-        }
-        hid_free_enumeration(orig_handle);
+    auto picoHandle = hid_enumerate(9114, 51966);
 
-        auto picoHandle = hid_enumerate(9114, 51966);
+    if(!picoHandle) return;
 
-        if(!picoHandle) return;
+    hid_device * pico = hid_open(9114, 51966, picoHandle->serial_number);
+    hid_free_enumeration(picoHandle);
+    if(!pico){
+        qDebug() << "Failed hid open";
+    } else {
+        qDebug() << "Succ";
+        for (;;){
+            uint8_t packet_buffer[64];
 
-        hid_device * pico = hid_open(9114, 51966, picoHandle->serial_number);
-        hid_free_enumeration(picoHandle);
-        if(!pico){
-            qDebug() << "Failed hid open";
-        } else {
-            qDebug() << "Succ";
-            for (;;){
-                uint8_t packet_buffer[64];
-
-                int res = hid_read(pico, packet_buffer, 66);
-                if(res>0 && packet_buffer[0] == 2){
-                    qDebug() << "Result: " << res;
-                    //qDebug()  << packet_buffer[0] << packet_buffer[1] << packet_buffer[2] << packet_buffer[3] << packet_buffer[4] << packet_buffer[5] << packet_buffer[6];
-                    qDebug()  << packet_buffer[17] << packet_buffer[18] << packet_buffer[19] << packet_buffer[20] << packet_buffer[21] << packet_buffer[22] << packet_buffer[23];
-                }
+            int res = hid_read(pico, packet_buffer, 66);
+            if(res>0 && packet_buffer[0] == 3){
+                int16_t accelX = packet_buffer[4] << 8 | packet_buffer[3];
+                emit accX(accelX);
+//                qDebug() << "ACCx: " << accelX;
             }
         }
     }
-};
+}
 
+void hmd_pane::setSlider(int16_t val){
+    ui->horizontalSlider->setValue(val);
+}
 
 hmd_pane::hmd_pane(QWidget *parent)
     : generic_pane(parent)
@@ -70,6 +64,7 @@ hmd_pane::hmd_pane(QWidget *parent)
     connect(workerThread, &QThread::started, worker, &Worker::doWork);
     connect(ui->refreshHID, &QPushButton::clicked, this, &hmd_pane::reload_hid);
     connect(ui->refreshSerial, &QPushButton::clicked, this, &hmd_pane::reload_serial);
+    connect(worker, &Worker::accX, this, &hmd_pane::setSlider);
     workerThread->start();
 }
 
@@ -88,22 +83,22 @@ void hmd_pane::disable(){
 
 void hmd_pane::on_transportBox_currentIndexChanged(int index)
 {
-    switch(index){
-    case 0: // HID selected
-        ui->COM_Box->setDisabled(true);
-        ui->lineEdit_COM->setDisabled(true);
-        ui->HID_Box->setDisabled(false);
-        ui->lineEdit_PID->setDisabled(false);
-        ui->lineEdit_VID->setDisabled(false);
-        break;
-    case 1: // Serial selected
-        ui->COM_Box->setDisabled(false);
-        ui->lineEdit_COM->setDisabled(false);
-        ui->HID_Box->setDisabled(true);
-        ui->lineEdit_PID->setDisabled(true);
-        ui->lineEdit_VID->setDisabled(true);
-        break;
-    }
+    // switch(index){
+    // case 0: // HID selected
+    //     ui->COM_Box->setDisabled(true);
+    //     ui->lineEdit_COM->setDisabled(true);
+    //     ui->HID_Box->setDisabled(false);
+    //     ui->lineEdit_PID->setDisabled(false);
+    //     ui->lineEdit_VID->setDisabled(false);
+    //     break;
+    // case 1: // Serial selected
+    //     ui->COM_Box->setDisabled(false);
+    //     ui->lineEdit_COM->setDisabled(false);
+    //     ui->HID_Box->setDisabled(true);
+    //     ui->lineEdit_PID->setDisabled(true);
+    //     ui->lineEdit_VID->setDisabled(true);
+    //     break;
+    // }
 }
 
 
@@ -127,6 +122,12 @@ void hmd_pane::reload_serial(){
             device->user_presentable_name += " (" + port.manufacturer() + ")";
         }
         device->path = port.portName();
+        auto baudrates = port.standardBaudRates();
+        int maxBaudrate = 9600;
+        for(auto baudrate : baudrates){
+            maxBaudrate = qMax(maxBaudrate, baudrate);
+        }
+        device->baudrate = QString::number(maxBaudrate);
         ui->COM_Box->addItem(device->user_presentable_name);
         serial_devices.push_back(device);
     }
@@ -136,6 +137,7 @@ void hmd_pane::on_COM_Box_currentIndexChanged(int index)
 {
     if(index>0){
         ui->lineEdit_COM->setText(serial_devices[index-1]->path);
+        ui->lineEdit_Baud->setText(serial_devices[index-1]->baudrate);
     }
 }
 

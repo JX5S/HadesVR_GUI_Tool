@@ -1,5 +1,11 @@
 <RCC>
-    <qresource prefix="/icons">
-        <file>resources/reshot-icon-about-NXKPGA5CMW.svg</file>
+    <qresource prefix="/icons"/>
+    <qresource prefix="/">
+        <file>resources/icons/icons_controller.png</file>
+        <file>resources/icons/icons_driver.png</file>
+        <file>resources/icons/icons_hmd.png</file>
+        <file>resources/icons/icons_info.png</file>
+        <file>resources/icons/icons_screens.png</file>
+        <file>resources/icons/icons_spanner.png</file>
     </qresource>
 </RCC>

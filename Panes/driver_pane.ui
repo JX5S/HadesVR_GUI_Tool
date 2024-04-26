@@ -45,7 +45,7 @@
      <item>
       <widget class="QPushButton" name="button_steamvr">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="text">
         <string>Download SteamVR</string>

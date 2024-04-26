@@ -61,15 +61,12 @@ void Driver_pane::refresh()
     if (!isSteamInstalled){
         ui->label_status_steamvr->setText("Steam is not installed");
         ui->button_steamvr->setText("Install Steam");
-        ui->button_steamvr->setDisabled(false);
     } else if (!isSteamVRInstalled){
         ui->label_status_steamvr->setText("SteamVR is not installed");
         ui->button_steamvr->setText("Install SteamVR");
-        ui->button_steamvr->setDisabled(false);
     } else {
         ui->label_status_steamvr->setText("SteamVR is installed");
-        ui->button_steamvr->setText("Install SteamVR");
-        ui->button_steamvr->setDisabled(true);
+        ui->button_steamvr->setText("Launch SteamVR");
     }
 
     // HadesVR Driver installation line
@@ -84,7 +81,7 @@ void Driver_pane::on_button_steamvr_clicked()
 {
     if (!isSteamInstalled){
         QDesktopServices::openUrl(QUrl("https://store.steampowered.com/about/"));
-    } else if (!isSteamVRInstalled){
+    } else {
         QDesktopServices::openUrl(QUrl("steam://run/250820"));
     }
 }

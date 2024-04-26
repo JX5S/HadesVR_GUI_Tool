@@ -11,11 +11,13 @@ struct Pane{
     QToolButton * pane_button;
     QString name;
     int id;
-    Pane(generic_pane * pane_widget, QToolButton * pane_button, QString name, int id){
+    QString icon;
+    Pane(generic_pane * pane_widget, QToolButton * pane_button, QString name, int id, QString icon){
         this->pane_widget = pane_widget;
         this->pane_button = pane_button;
         this->name = name;
         this->id = id;
+        this->icon = icon;
     }
 };
 

@@ -11,6 +11,7 @@
 #include <QVector>
 #include <QPair>
 #include <QIcon>
+#include <QImage>
 #include <QGuiApplication>
 #include <QStyleHints>
 
@@ -27,22 +28,28 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     QObject::connect(ui->paneButtonGroup, &QButtonGroup::idClicked, this, &MainWindow::on_pane_button_clicked);
 
-    ui->pane_button_controllers->setIcon(QIcon(":/icons/resources/reshot-icon-about-NXKPGA5CMW.svg"));
+    bool darkmode = QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark;
+    qDebug() << "Darkmode:" << darkmode;
+
 
     panes = {
-        Pane(new Driver_pane(ui->stackedWidget), ui->pane_button_driver, "Driver setup", 0),
-        Pane(new hmd_pane(ui->stackedWidget), ui->pane_button_hmd, "HMD setup", 1),
-        Pane(new screens_pane(ui->stackedWidget), ui->pane_button_screens, "Screens setup", 2),
-        Pane(new controllers_pane(ui->stackedWidget), ui->pane_button_controllers, "Controller setup", 3),
-        Pane(new about_pane(ui->stackedWidget), ui->pane_button_about, "About program", 4),
+        Pane(new Driver_pane(ui->stackedWidget), ui->pane_button_driver, "Driver setup", 0, ":/resources/icons/icons_driver.png"),
+        Pane(new hmd_pane(ui->stackedWidget), ui->pane_button_hmd, "HMD setup", 1, ":/resources/icons/icons_hmd.png"),
+        Pane(new screens_pane(ui->stackedWidget), ui->pane_button_screens, "Screens setup", 2, ":/resources/icons/icons_screens.png"),
+        Pane(new controllers_pane(ui->stackedWidget), ui->pane_button_controllers, "Controller setup", 3, ":/resources/icons/icons_controller.png"),
+        Pane(new about_pane(ui->stackedWidget), ui->pane_button_about, "About program", 4, ":/resources/icons/icons_info.png"),
     };
 
     for (auto pane = panes.begin(); pane != panes.end(); pane++){
         ui->paneButtonGroup->setId(pane->pane_button, pane->id);
         ui->stackedWidget->addWidget(pane->pane_widget);
-    }
 
-    qDebug() << "Darkmode:" << (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
+        QImage original(pane->icon);
+        if (darkmode) original.invertPixels();
+        QPixmap pixmap(QPixmap::fromImage(original));
+        pane->pane_button->setIcon(QIcon(pixmap));
+        pane->pane_button->setIconSize(QSize(100,100)); // maximum. Icon won't scale above original resolution, for whatever reason
+    }
 
     ui->stackedWidget->setCurrentWidget(panes[0].pane_widget);
 }

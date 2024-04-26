@@ -90,9 +90,6 @@
            <property name="text">
             <string>Driver</string>
            </property>
-           <property name="icon">
-            <iconset theme="applications-development"/>
-           </property>
            <property name="iconSize">
             <size>
              <width>60</width>

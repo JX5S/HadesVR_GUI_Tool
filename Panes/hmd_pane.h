@@ -6,6 +6,19 @@
 
 #include "generic_pane.h"
 
+
+class Worker : public QObject
+{
+    Q_OBJECT
+public:
+    Worker(){}
+    ~Worker(){}
+public slots:
+    void doWork();
+signals:
+    void accX(int16_t accelX);
+};
+
 namespace Ui {
 class hmd_pane;
 }
@@ -13,6 +26,7 @@ class hmd_pane;
 struct Serial_device{
     QString user_presentable_name = "";
     QString path = "";
+    QString baudrate = "230400";
 };
 
 struct HID_device{
@@ -33,6 +47,9 @@ public:
     ~hmd_pane();
     void enable();
     void disable();
+
+public slots:
+    void setSlider(int16_t val);
 
 private slots:
     void on_COM_Box_currentIndexChanged(int index);
