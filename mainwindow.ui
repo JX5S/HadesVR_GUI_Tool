@@ -111,7 +111,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="pane_button_hmd">
+          <widget class="QToolButton" name="pane_button_screens">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
              <horstretch>0</horstretch>
@@ -125,7 +125,7 @@
             </size>
            </property>
            <property name="text">
-            <string>HMD</string>
+            <string>Screen(s)</string>
            </property>
            <property name="iconSize">
             <size>
@@ -145,7 +145,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="pane_button_screens">
+          <widget class="QToolButton" name="pane_button_hmd">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
              <horstretch>0</horstretch>
@@ -159,7 +159,7 @@
             </size>
            </property>
            <property name="text">
-            <string>Screen(s)</string>
+            <string>HMD</string>
            </property>
            <property name="iconSize">
             <size>

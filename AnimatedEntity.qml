@@ -11,10 +11,6 @@ Entity {
     id: sceneRoot
 //    property RenderCapabilities capabilities : renderSettings.renderCapabilities
 
-    property bool validBounds: sphereMesh.implicitPointsValid
-    property vector3d sphereMinPt: sphereMesh.implicitMinPoint
-    property vector3d sphereMaxPt: sphereMesh.implicitMaxPoint
-
     Camera {
         id: camera
         projectionType: CameraLens.PerspectiveProjection
