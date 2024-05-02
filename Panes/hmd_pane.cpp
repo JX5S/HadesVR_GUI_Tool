@@ -72,6 +72,9 @@ void hmd_pane::disable(){
     qDebug() << "disable hmd pane";
 }
 
+void hmd_pane::updateSettings(VRSettings * vrsettings){
+
+}
 
 
 

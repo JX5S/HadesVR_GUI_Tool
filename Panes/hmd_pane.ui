@@ -55,6 +55,13 @@
           </spacer>
          </item>
          <item>
+          <widget class="QLabel" name="NotificationLabel">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="pushButton_2">
            <property name="text">
             <string>Reset Yaw</string>

@@ -15,8 +15,10 @@ SOURCES += \
     Panes/generic_pane.cpp \
     Panes/hmd_pane.cpp \
     Panes/screens_pane.cpp \
+    connection_handler.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    vrsettings.cpp
 
 HEADERS += \
     Panes/Pane_class.h \
@@ -26,8 +28,10 @@ HEADERS += \
     Panes/generic_pane.h \
     Panes/hmd_pane.h \
     Panes/screens_pane.h \
+    connection_handler.h \
     include_ext/hidapi.h \
-    mainwindow.h
+    mainwindow.h \
+    vrsettings.h
 
 FORMS += \
     Panes/about_pane.ui \

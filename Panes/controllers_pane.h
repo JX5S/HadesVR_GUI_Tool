@@ -17,6 +17,7 @@ public:
     ~controllers_pane();
     void enable();
     void disable();
+    void updateSettings(VRSettings * vrsettings);
 
 private slots:
 

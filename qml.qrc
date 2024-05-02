@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>hmd_viewport.qml</file>
-        <file>AnimatedEntity.qml</file>
+        <file>HeadsetEntity.qml</file>
         <file>resources/Stanford_Bunny_sample.stl</file>
         <file>resources/headset_model.mtl</file>
     </qresource>

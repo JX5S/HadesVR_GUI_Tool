@@ -14,17 +14,19 @@ class Driver_pane;
 struct Serial_device{
     QString user_presentable_name = "";
     QString path = "";
-    QString baudrate = "230400";
+    int baudrate = 230400;
 };
 
 struct HID_device{
     QString user_presentable_name = "";
-    QString PID = "";
-    QString VID = "";
+    int PID = 0;
+    int VID = 0;
     QString SerialNo = "";
 
     bool operator==(const HID_device &other);
 };
+
+
 
 class Driver_pane : public generic_pane
 {
@@ -35,6 +37,10 @@ public:
     ~Driver_pane();
     void enable();
     void disable();
+    void updateSettings(VRSettings * vrsettings);
+
+signals:
+    void pathChanged(QString path);
 
 private slots:
     void on_button_steamvr_clicked();
@@ -52,6 +58,10 @@ private slots:
 
     void reload_serial();
     void reload_hid();
+
+    void on_settingsLineEdit_textChanged(const QString &arg1);
+
+    void on_lineEdit_Baud_textEdited(const QString &arg1);
 
 private:
     Ui::Driver_pane *ui;

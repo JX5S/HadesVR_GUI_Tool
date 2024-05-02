@@ -24,7 +24,7 @@ Driver_pane::Driver_pane(QWidget *parent)
     connect(ui->refreshSerial, &QPushButton::clicked, this, &Driver_pane::reload_serial);
     refresh();
     connect(&this->timer, SIGNAL(timeout()), this, SLOT(refresh()));
-    this->enable();
+    // this->enable(); // having it here doesn't setup vrsettings's path on startup. Instead it is called in mainwindow.cpp
 }
 
 Driver_pane::~Driver_pane()
@@ -113,7 +113,9 @@ void Driver_pane::on_pushButton_clicked()
 }
 
 void Driver_pane::enable(){
+    emit pathChanged(ui->settingsLineEdit->text());
     qDebug() << "enable driver pane";
+    qDebug() << ui->settingsLineEdit->text();
     this->timer.start(1000);
 }
 void Driver_pane::disable(){
@@ -130,9 +132,15 @@ void Driver_pane::on_SettingSelectPushbutton_clicked()
     }
 }
 
+void Driver_pane::on_lineEdit_Baud_textEdited(const QString &arg1)
+{
+    emit changeSettingMemory("Driver:UART_Baudrate", arg1.toInt());
+}
+
 void Driver_pane::on_lineEdit_COM_textEdited(const QString &arg1)
 {
     ui->COM_Box->setCurrentIndex(0);
+    emit changeSettingMemory("Driver:UART_Port", arg1);
 }
 
 void Driver_pane::reload_serial(){
@@ -155,7 +163,7 @@ void Driver_pane::reload_serial(){
         for(auto baudrate : baudrates){
             maxBaudrate = qMax(maxBaudrate, baudrate);
         }
-        device->baudrate = QString::number(maxBaudrate);
+        device->baudrate = maxBaudrate;
         ui->COM_Box->addItem(device->user_presentable_name);
         serial_devices.push_back(device);
     }
@@ -165,7 +173,9 @@ void Driver_pane::on_COM_Box_currentIndexChanged(int index)
 {
     if(index>0){
         ui->lineEdit_COM->setText(serial_devices[index-1]->path);
-        ui->lineEdit_Baud->setText(serial_devices[index-1]->baudrate);
+        ui->lineEdit_Baud->setText(QString::number(serial_devices[index-1]->baudrate));
+        emit changeSettingMemory("Driver:UART_Port", serial_devices[index-1]->path);
+        emit changeSettingMemory("Driver:UART_Baudrate", serial_devices[index-1]->baudrate);
     }
 }
 
@@ -173,10 +183,12 @@ void Driver_pane::on_COM_Box_currentIndexChanged(int index)
 void Driver_pane::on_lineEdit_VID_textEdited(const QString &arg1)
 {
     ui->HID_Box->setCurrentIndex(0);
+    emit changeSettingMemory("Driver:HID_VID", arg1.toInt());
 }
 void Driver_pane::on_lineEdit_PID_textEdited(const QString &arg1)
 {
     ui->HID_Box->setCurrentIndex(0);
+    emit changeSettingMemory("Driver:HID_PID", arg1.toInt());
 }
 
 bool HID_device::operator==(const HID_device &other){
@@ -195,8 +207,8 @@ void Driver_pane::reload_hid(){
     while (handle != NULL){
         QString manufacturer = QString::fromWCharArray(handle->manufacturer_string);
         QString product =  QString::fromWCharArray(handle->product_string);
-        QString PID = QString::number(handle->product_id);
-        QString VID = QString::number(handle->vendor_id);
+        int PID = handle->product_id;
+        int VID = handle->vendor_id;
         QString serial_no = QString::fromWCharArray(handle->serial_number);
 
         HID_device * device = new HID_device;
@@ -221,8 +233,10 @@ void Driver_pane::reload_hid(){
 void Driver_pane::on_HID_Box_currentIndexChanged(int index)
 {
     if (index > 0){
-        ui->lineEdit_PID->setText(hid_devices[index-1]->PID);
-        ui->lineEdit_VID->setText(hid_devices[index-1]->VID);
+        ui->lineEdit_PID->setText(QString::number(hid_devices[index-1]->PID));
+        ui->lineEdit_VID->setText(QString::number(hid_devices[index-1]->VID));
+        emit changeSettingMemory("Driver:HID_PID", hid_devices[index-1]->PID);
+        emit changeSettingMemory("Driver:HID_VID", hid_devices[index-1]->VID);
     }
 }
 
@@ -244,4 +258,30 @@ void Driver_pane::on_transportBox_currentIndexChanged(int index)
     //     ui->lineEdit_VID->setDisabled(true);
     //     break;
     // }
+    if (!index){
+        emit changeSettingMemory("Driver:TransportMode", "HID");
+    } else {
+        emit changeSettingMemory("Driver:TransportMode", "UART");
+    }
 }
+
+void Driver_pane::on_settingsLineEdit_textChanged(const QString &arg1)
+{
+    emit pathChanged(arg1);
+}
+
+void Driver_pane::updateSettings(VRSettings * vrsettings){
+    qDebug() << "It has been called upon";
+    ui->lineEdit_VID->setText(QString::number(vrsettings->settingsMap["Driver:HID_VID"].toDouble()));
+    ui->lineEdit_PID->setText(QString::number(vrsettings->settingsMap["Driver:HID_PID"].toDouble()));
+    ui->lineEdit_COM->setText(vrsettings->settingsMap["Driver:UART_Port"].toString());
+    ui->lineEdit_Baud->setText(QString::number(vrsettings->settingsMap["Driver:UART_Baudrate"].toInt()));
+    ui->HID_Box->setCurrentIndex(0);
+    ui->COM_Box->setCurrentIndex(0);
+    ui->transportBox->setCurrentIndex(vrsettings->settingsMap["Driver:TransportMode"].toString() == "UART"); // This is valid code, fight me
+    ui->headlessBox->setCurrentIndex(vrsettings->settingsMap["Driver:HeadlessMode"].toBool());
+    ui->lineEdit_PSMSFreq->setText(QString::number(vrsettings->settingsMap["Driver:PSMSTrackerFrequency"].toInt()));
+}
+
+
+

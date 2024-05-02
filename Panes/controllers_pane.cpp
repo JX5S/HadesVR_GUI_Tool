@@ -24,3 +24,7 @@ void controllers_pane::enable(){
 void controllers_pane::disable(){
     qDebug() << "disable controllers pane";
 }
+
+void controllers_pane::updateSettings(VRSettings * vrsettings){
+
+}

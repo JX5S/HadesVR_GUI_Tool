@@ -6,6 +6,7 @@
 #include "Panes/controllers_pane.h"
 #include "Panes/hmd_pane.h"
 #include "Panes/screens_pane.h"
+#include "vrsettings.h"
 
 #include <QObject>
 #include <QVector>
@@ -14,6 +15,7 @@
 #include <QImage>
 #include <QGuiApplication>
 #include <QStyleHints>
+#include <QPushButton>
 
 #define driver_btn_id 0
 #define hmd_btn_id 1
@@ -26,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QObject::connect(ui->paneButtonGroup, &QButtonGroup::idClicked, this, &MainWindow::on_pane_button_clicked);
 
     bool darkmode = QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark;
     qDebug() << "Darkmode:" << darkmode;
@@ -40,6 +41,13 @@ MainWindow::MainWindow(QWidget *parent)
         Pane(new about_pane(ui->stackedWidget), ui->pane_button_about, "About program", 4, ":/resources/icons/icons_info.png"),
     };
 
+    QObject::connect(ui->paneButtonGroup, &QButtonGroup::idClicked, this, &MainWindow::on_pane_button_clicked);
+    QObject::connect(ui->reload_button, &QPushButton::clicked, &vrsettings, &VRSettings::ReadFromDisk);
+    QObject::connect(ui->save_button, &QPushButton::clicked, &vrsettings, &VRSettings::SaveToDisk);
+    QObject::connect((Driver_pane*)panes[0].pane_widget, &Driver_pane::pathChanged, &vrsettings, &VRSettings::changePath);
+
+    panes[0].pane_widget->enable();
+
     for (auto pane = panes.begin(); pane != panes.end(); pane++){
         ui->paneButtonGroup->setId(pane->pane_button, pane->id);
         ui->stackedWidget->addWidget(pane->pane_widget);
@@ -49,6 +57,8 @@ MainWindow::MainWindow(QWidget *parent)
         QPixmap pixmap(QPixmap::fromImage(original));
         pane->pane_button->setIcon(QIcon(pixmap));
         pane->pane_button->setIconSize(QSize(100,100)); // maximum. Icon won't scale above original resolution, for whatever reason
+        connect(&vrsettings, &VRSettings::settingsHaveChagned, pane->pane_widget, &generic_pane::updateSettings);
+        connect(pane->pane_widget, &generic_pane::changeSettingMemory, &vrsettings, &VRSettings::changeSetting);
     }
 
     ui->stackedWidget->setCurrentWidget(panes[0].pane_widget);

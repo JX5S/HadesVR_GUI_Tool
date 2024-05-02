@@ -7,5 +7,7 @@
         <file>resources/icons/icons_info.png</file>
         <file>resources/icons/icons_screens.png</file>
         <file>resources/icons/icons_spanner.png</file>
+        <file>resources/default_settings.json</file>
+        <file>resources/order.txt</file>
     </qresource>
 </RCC>

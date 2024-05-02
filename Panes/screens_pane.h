@@ -18,6 +18,7 @@ public:
     ~screens_pane();
     void enable();
     void disable();
+    void updateSettings(VRSettings * vrsettings);
 
 private:
     Ui::screens_pane *ui;

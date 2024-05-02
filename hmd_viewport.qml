@@ -11,7 +11,7 @@ Item {
         aspects: ["input", "logic"]
         cameraAspectRatioMode: Scene3D.AutomaticAspectRatio
 
-        AnimatedEntity {
+        HeadsetEntity {
             id: rootEntity
         }
     }

@@ -32,6 +32,7 @@ public:
     ~hmd_pane();
     void enable();
     void disable();
+    void updateSettings(VRSettings * vrsettings);
 
 public slots:
 

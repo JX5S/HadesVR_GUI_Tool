@@ -21,3 +21,7 @@ void about_pane::enable(){
 void about_pane::disable(){
     qDebug() << "Disable about_pane";
 }
+
+void about_pane::updateSettings(VRSettings * vrsettings){
+
+}

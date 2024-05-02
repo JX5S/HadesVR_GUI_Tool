@@ -17,6 +17,7 @@ public:
     ~about_pane();
     void enable();
     void disable();
+    void updateSettings(VRSettings * vrsettings);
 
 private:
     Ui::about_pane *ui;

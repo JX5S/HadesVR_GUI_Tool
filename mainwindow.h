@@ -5,6 +5,7 @@
 #include <QString>
 
 #include "Panes/Pane_class.h"
+#include "vrsettings.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -19,6 +20,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    VRSettings vrsettings;
 
 
 private slots:
