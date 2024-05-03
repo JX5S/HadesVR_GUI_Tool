@@ -270,6 +270,16 @@ void Driver_pane::on_settingsLineEdit_textChanged(const QString &arg1)
     emit pathChanged(arg1);
 }
 
+void Driver_pane::on_headlessBox_currentIndexChanged(int index)
+{
+    emit changeSettingMemory("Driver:HeadlessMode", index == 1);
+}
+
+void Driver_pane::on_lineEdit_PSMSFreq_textEdited(const QString &arg1)
+{
+    emit changeSettingMemory("Driver:PSMSTrackerFrequency", arg1.toInt());
+}
+
 void Driver_pane::updateSettings(VRSettings * vrsettings){
     qDebug() << "It has been called upon";
     ui->lineEdit_VID->setText(QString::number(vrsettings->settingsMap["Driver:HID_VID"].toDouble()));
@@ -282,6 +292,3 @@ void Driver_pane::updateSettings(VRSettings * vrsettings){
     ui->headlessBox->setCurrentIndex(vrsettings->settingsMap["Driver:HeadlessMode"].toBool());
     ui->lineEdit_PSMSFreq->setText(QString::number(vrsettings->settingsMap["Driver:PSMSTrackerFrequency"].toInt()));
 }
-
-
-

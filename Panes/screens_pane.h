@@ -20,6 +20,9 @@ public:
     void disable();
     void updateSettings(VRSettings * vrsettings);
 
+public slots:
+    void refresh();
+
 private:
     Ui::screens_pane *ui;
 };

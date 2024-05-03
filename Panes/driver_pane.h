@@ -63,6 +63,10 @@ private slots:
 
     void on_lineEdit_Baud_textEdited(const QString &arg1);
 
+    void on_headlessBox_currentIndexChanged(int index);
+
+    void on_lineEdit_PSMSFreq_textEdited(const QString &arg1);
+
 private:
     Ui::Driver_pane *ui;
     bool isSteamInstalled = false;
