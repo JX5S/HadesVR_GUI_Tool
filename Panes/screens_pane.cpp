@@ -5,13 +5,19 @@
 #include <QString>
 #include <QGuiApplication>
 #include <QScreen>
-
+#include <QGraphicsScene>
+#include <QGraphicsTextItem>
+#include <QStyleHints>>
 
 screens_pane::screens_pane(QWidget *parent)
     : generic_pane(parent)
     , ui(new Ui::screens_pane)
 {
     ui->setupUi(this);
+    connect(ui->refreshButton, &QPushButton::clicked, this, &screens_pane::refresh);
+    connect(&screenButtonGroup, &QButtonGroup::idClicked, this, &screens_pane::buttonClicked);
+    screenButtonGroup.setExclusive(true);
+    refresh();
 }
 
 screens_pane::~screens_pane()
@@ -31,10 +37,29 @@ void screens_pane::updateSettings(VRSettings * vrsettings){
 }
 
 void screens_pane::refresh(){
-    int minX = 0, minY = 0, maxX = 0, maxY = 0;
     qDebug() << "enable screens pane";
-    QList<QScreen *> screens = QApplication::screens();
+
+    bool darkmode = QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark;
+
+    QColor edgeCol = Qt::lightGray;
+    QColor fillCol = QColor(50,50,50);
+    QColor textCol = Qt::white;
+
+    screens = QApplication::screens();
+
+    QLayoutItem *child;
+    while ((child = ui->buttonLayout->takeAt(0)) != nullptr) {
+        delete child->widget(); // delete the widget
+        delete child;   // delete the layout item
+    }
+
+    int minX = 0, minY = 0, maxX = 0, maxY = 0;
+
     qDebug() << "=================================";
+
+    QGraphicsScene * scene = new QGraphicsScene;
+    int lineW = 50;
+    int i = 1;
     for (QScreen * screen : screens){
         QRect geometry = screen->geometry();
         geometry.setSize(screen->devicePixelRatio() * geometry.size());
@@ -51,7 +76,29 @@ void screens_pane::refresh(){
         qDebug() << "Geometry:" << geometry;
         qDebug() << "Ratio:" << screen->devicePixelRatio();
         qDebug() << "=================================";
+
+        QRectF rect(geometry.left() + lineW, geometry.top() - lineW, geometry.width() - 2*lineW, geometry.height()-2*lineW);
+        QPen pen(edgeCol);           // Blue border
+        pen.setWidth(lineW);              // Border width
+        QBrush brush(fillCol);     // Yellow fill
+        scene->addRect(rect, pen, brush);
+
+        QFont font("Arial", 160);
+        QGraphicsTextItem * textItem = scene->addText(QString::number(i), font);
+        textItem->setDefaultTextColor(textCol);
+        textItem->setPos(geometry.center() - QPoint(textItem->boundingRect().width()/2, textItem->boundingRect().height()));
+
+        QPushButton * currBtn = new QPushButton();
+        currBtn->setText(QString::number(i));
+        currBtn->setCheckable(true);
+        ui->buttonLayout->addWidget(currBtn);
+        screenButtonGroup.addButton(currBtn);
+        screenButtonGroup.setId(currBtn, i);
+
+        i++;
+        // Add the text item to the scene
     }
+
     qDebug() << "Screen count: " << screens.count();
     qDebug() << "MinX = " << minX;
     qDebug() << "MaxX = " << maxX;
@@ -59,15 +106,14 @@ void screens_pane::refresh(){
     qDebug() << "MaxY = " << maxY;
     qDebug() << "=================================";
 
-    QLayoutItem *child;
-    while ((child = ui->buttonLayout->takeAt(0)) != nullptr) {
-        delete child->widget(); // delete the widget
-        delete child;   // delete the layout item
-    }
 
-    for(int i = 0; i < screens.count(); i++){
-        QPushButton * currBtn = new QPushButton();
-        currBtn->setText(QString::number(i+1));
-        ui->buttonLayout->addWidget(currBtn);
-    }
+
+    ui->screensGraphicsView->setScene(scene);
+    ui->screensGraphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
+}
+
+void screens_pane::buttonClicked(int id)
+{
+    qDebug() << id;
+    qDebug() << screens[id-1]->geometry();
 }

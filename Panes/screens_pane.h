@@ -4,6 +4,7 @@
 #include <QWidget>
 
 #include "generic_pane.h"
+#include <QButtonGroup>
 
 namespace Ui {
 class screens_pane;
@@ -22,9 +23,12 @@ public:
 
 public slots:
     void refresh();
+    void buttonClicked(int id);
 
 private:
     Ui::screens_pane *ui;
+    QButtonGroup screenButtonGroup;
+    QList<QScreen *> screens;
 };
 
 #endif // SCREENS_PANE_H

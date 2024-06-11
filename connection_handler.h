@@ -13,19 +13,18 @@ struct QuatData
 
 struct ControllerData
 {
-    uint16_t Ctrl1_Buttons;
-    uint8_t Ctrl1_Trigger;
-    int8_t Ctrl1_axisX;
-    int8_t Ctrl1_axisY;
-    int8_t Ctrl1_trackY;
-    uint8_t Ctrl1_vBat;
-    uint8_t Ctrl1_THUMB;
-    uint8_t Ctrl1_INDEX;
-    uint8_t Ctrl1_MIDDLE;
-    uint8_t Ctrl1_RING;
-    uint8_t Ctrl1_PINKY;
-    uint8_t Ctrl1_AnalogGrip;
-    uint16_t Ctrl1_Data;
+    uint16_t Ctrl1_Buttons = 0;
+    uint8_t Ctrl1_Trigger = 0;
+    int8_t Ctrl1_axisX = 0;
+    int8_t Ctrl1_axisY = 0;
+    int8_t Ctrl1_trackY = 0;
+    uint8_t Ctrl1_vBat = 0;
+    uint8_t Ctrl1_THUMB = 0;
+    uint8_t Ctrl1_INDEX = 0;
+    uint8_t Ctrl1_MIDDLE = 0;
+    uint8_t Ctrl1_RING = 0;
+    uint8_t Ctrl1_PINKY = 0;
+    uint8_t Ctrl1_AnalogGrip = 0;
 };
 
 class connection_handler : public QObject

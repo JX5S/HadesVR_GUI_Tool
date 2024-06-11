@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>371</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,25 +15,16 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="refreshButton">
      <property name="text">
       <string>Refresh</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="widget" native="true">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>200</width>
-       <height>300</height>
-      </size>
+    <widget class="QGraphicsView" name="screensGraphicsView">
+     <property name="resizeAnchor">
+      <enum>QGraphicsView::AnchorViewCenter</enum>
      </property>
     </widget>
    </item>
