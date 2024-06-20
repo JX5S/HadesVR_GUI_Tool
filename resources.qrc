@@ -9,5 +9,6 @@
         <file>resources/icons/icons_spanner.png</file>
         <file>resources/default_settings.json</file>
         <file>resources/order.txt</file>
+        <file>resources/icons/icons_other.png</file>
     </qresource>
 </RCC>

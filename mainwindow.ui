@@ -67,9 +67,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-202</y>
           <width>484</width>
-          <height>492</height>
+          <height>588</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -194,6 +194,40 @@
            </property>
            <property name="text">
             <string>Controllers</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>60</width>
+             <height>60</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextUnderIcon</enum>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">paneButtonGroup</string>
+           </attribute>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="pane_button_others">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>90</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Other</string>
            </property>
            <property name="iconSize">
             <size>

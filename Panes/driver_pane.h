@@ -63,9 +63,15 @@ private slots:
 
     void on_lineEdit_Baud_textEdited(const QString &arg1);
 
-    void on_headlessBox_currentIndexChanged(int index);
-
     void on_lineEdit_PSMSFreq_textEdited(const QString &arg1);
+
+    void on_VRDirectCheckBox_toggled(bool checked);
+
+    void on_lineEdit_EDID_VID_textEdited(const QString &arg1);
+
+    void on_lineEdit_EDID_PID_textEdited(const QString &arg1);
+
+    void on_checkBoxHeadlessMode_toggled(bool checked);
 
 private:
     Ui::Driver_pane *ui;

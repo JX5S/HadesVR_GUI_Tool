@@ -242,6 +242,8 @@ void Driver_pane::on_HID_Box_currentIndexChanged(int index)
 
 void Driver_pane::on_transportBox_currentIndexChanged(int index)
 {
+    // Doesn't look right in darkmode, but from a UX perspective I'd prefer it to work
+
     // switch(index){
     // case 0: // HID selected
     //     ui->COM_Box->setDisabled(true);
@@ -258,6 +260,7 @@ void Driver_pane::on_transportBox_currentIndexChanged(int index)
     //     ui->lineEdit_VID->setDisabled(true);
     //     break;
     // }
+
     if (!index){
         emit changeSettingMemory("Driver:TransportMode", "HID");
     } else {
@@ -270,14 +273,31 @@ void Driver_pane::on_settingsLineEdit_textChanged(const QString &arg1)
     emit pathChanged(arg1);
 }
 
-void Driver_pane::on_headlessBox_currentIndexChanged(int index)
-{
-    emit changeSettingMemory("Driver:HeadlessMode", index == 1);
-}
-
 void Driver_pane::on_lineEdit_PSMSFreq_textEdited(const QString &arg1)
 {
     emit changeSettingMemory("Driver:PSMSTrackerFrequency", arg1.toInt());
+}
+
+void Driver_pane::on_VRDirectCheckBox_toggled(bool checked)
+{
+    emit changeSettingMemory("Driver:EnableDirectMode", checked);
+}
+
+
+void Driver_pane::on_lineEdit_EDID_VID_textEdited(const QString &arg1)
+{
+    emit changeSettingMemory("Driver:EDID_VID", arg1.toInt());
+}
+
+
+void Driver_pane::on_lineEdit_EDID_PID_textEdited(const QString &arg1)
+{
+    emit changeSettingMemory("Driver:EDID_PID", arg1.toInt());
+}
+
+void Driver_pane::on_checkBoxHeadlessMode_toggled(bool checked)
+{
+    emit changeSettingMemory("Driver:HeadlessMode", checked);
 }
 
 void Driver_pane::updateSettings(VRSettings * vrsettings){
@@ -289,6 +309,10 @@ void Driver_pane::updateSettings(VRSettings * vrsettings){
     ui->HID_Box->setCurrentIndex(0);
     ui->COM_Box->setCurrentIndex(0);
     ui->transportBox->setCurrentIndex(vrsettings->settingsMap["Driver:TransportMode"].toString() == "UART"); // This is valid code, fight me
-    ui->headlessBox->setCurrentIndex(vrsettings->settingsMap["Driver:HeadlessMode"].toBool());
+    ui->checkBoxHeadlessMode->setChecked(vrsettings->settingsMap["Driver:HeadlessMode"].toBool());
     ui->lineEdit_PSMSFreq->setText(QString::number(vrsettings->settingsMap["Driver:PSMSTrackerFrequency"].toInt()));
+    ui->VRDirectCheckBox->setChecked(vrsettings->settingsMap["Driver:EnableDirectMode"].toBool());
+    ui->lineEdit_EDID_PID->setText(vrsettings->settingsMap["Driver:EDID_PID"].toString());
+    ui->lineEdit_EDID_VID->setText(vrsettings->settingsMap["Driver:EDID_VID"].toString());
 }
+

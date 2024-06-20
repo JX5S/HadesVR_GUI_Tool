@@ -25,10 +25,26 @@ public slots:
     void refresh();
     void buttonClicked(int id);
 
+private slots:
+    void on_lineEditWindowWidth_textEdited(const QString &arg1);
+
+    void on_lineEditWindowHeight_textEdited(const QString &arg1);
+
+    void on_lineEditRenderWidth_textEdited(const QString &arg1);
+
+    void on_lineEditRenderHeight_textEdited(const QString &arg1);
+
+    void on_lineEditDispRefreshRate_textEdited(const QString &arg1);
+
+    void on_lineEditWindowX_textEdited(const QString &arg1);
+
+    void on_lineEditWindowY_textEdited(const QString &arg1);
+
 private:
     Ui::screens_pane *ui;
     QButtonGroup screenButtonGroup;
     QList<QScreen *> screens;
+    void drawScreens(int id);
 };
 
 #endif // SCREENS_PANE_H

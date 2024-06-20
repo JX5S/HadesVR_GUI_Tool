@@ -14,6 +14,7 @@ SOURCES += \
     Panes/driver_pane.cpp \
     Panes/generic_pane.cpp \
     Panes/hmd_pane.cpp \
+    Panes/others_pane.cpp \
     Panes/screens_pane.cpp \
     connection_handler.cpp \
     main.cpp \
@@ -27,6 +28,7 @@ HEADERS += \
     Panes/driver_pane.h \
     Panes/generic_pane.h \
     Panes/hmd_pane.h \
+    Panes/others_pane.h \
     Panes/screens_pane.h \
     connection_handler.h \
     include_ext/hidapi.h \
@@ -38,6 +40,7 @@ FORMS += \
     Panes/controllers_pane.ui \
     Panes/driver_pane.ui \
     Panes/hmd_pane.ui \
+    Panes/others_pane.ui \
     Panes/screens_pane.ui \
     mainwindow.ui
 

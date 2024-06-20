@@ -468,38 +468,11 @@
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_12">
+     <item row="2" column="1">
+      <widget class="QCheckBox" name="VRDirectCheckBox">
        <property name="text">
-        <string>Headless mode: </string>
+        <string/>
        </property>
-      </widget>
-     </item>
-     <item row="0" column="2" rowspan="2">
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="1">
-      <widget class="QComboBox" name="headlessBox">
-       <item>
-        <property name="text">
-         <string>false</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>true</string>
-        </property>
-       </item>
       </widget>
      </item>
      <item row="1" column="0">
@@ -512,6 +485,13 @@
        </property>
        <property name="text">
         <string>PSMS tracker frequency: </string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_15">
+       <property name="text">
+        <string>EDID VID</string>
        </property>
       </widget>
      </item>
@@ -529,11 +509,93 @@
          <height>0</height>
         </size>
        </property>
+       <property name="inputMask">
+        <string/>
+       </property>
        <property name="text">
         <string/>
        </property>
+       <property name="maxLength">
+        <number>10</number>
+       </property>
        <property name="placeholderText">
         <string>60</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2" rowspan="2">
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_12">
+       <property name="text">
+        <string>Headless mode: </string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_14">
+       <property name="text">
+        <string>Enable direct mode</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="lineEdit_EDID_VID">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="inputMask">
+        <string/>
+       </property>
+       <property name="maxLength">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_16">
+       <property name="text">
+        <string>EDID PID</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="lineEdit_EDID_PID">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="inputMask">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="maxLength">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QCheckBox" name="checkBoxHeadlessMode">
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>

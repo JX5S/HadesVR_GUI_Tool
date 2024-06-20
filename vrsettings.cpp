@@ -3,6 +3,8 @@
 #include <QDebug>
 #include <QMessageBox>
 
+// Here be dragons. Read at your own risk
+
 VRSettings::VRSettings() { // Used as reference, along with QT documentation: https://stackoverflow.com/a/18770335
     QString settingsFile(":/resources/default_settings.json");
     QFile file;
@@ -159,6 +161,9 @@ void VRSettings::SaveToDisk(){
 
     writeFile.close();
     orderFile.close();
+
+    // to refresh UI with what was actually written. Mainly for invalid inputs
+    ReadFromDisk();
 }
 
 

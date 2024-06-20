@@ -72,12 +72,26 @@ void hmd_pane::disable(){
     qDebug() << "disable hmd pane";
 }
 
-void hmd_pane::updateSettings(VRSettings * vrsettings){
-
+void hmd_pane::on_lineEditSerialNumber_textEdited(const QString &arg1)
+{
+    emit changeSettingMemory("HMD:serialNumber", arg1);
 }
 
 
+void hmd_pane::on_lineEditModelNumber_textEdited(const QString &arg1)
+{
+    emit changeSettingMemory("HMD:modelNumber", arg1);
+}
 
+void hmd_pane::on_checkBoxEnableHMD_toggled(bool checked)
+{
+    emit changeSettingMemory("HMD:EnableHMD", checked);
+}
 
-
+void hmd_pane::updateSettings(VRSettings * vrsettings){
+    qDebug() << "It has been called upon hmd_pane";
+    ui->lineEditModelNumber->setText(vrsettings->settingsMap["HMD:modelNumber"].toString());
+    ui->lineEditSerialNumber->setText(vrsettings->settingsMap["HMD:serialNumber"].toString());
+    ui->checkBoxEnableHMD->setChecked(vrsettings->settingsMap["HMD:EnableHMD"].toBool());
+}
 

@@ -39,6 +39,12 @@ public slots:
 private slots:
 
 
+    void on_checkBoxEnableHMD_toggled(bool checked);
+
+    void on_lineEditSerialNumber_textEdited(const QString &arg1);
+
+    void on_lineEditModelNumber_textEdited(const QString &arg1);
+
 private:
     Ui::hmd_pane *ui;
 };

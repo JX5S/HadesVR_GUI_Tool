@@ -23,9 +23,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-74</y>
         <width>654</width>
-        <height>599</height>
+        <height>591</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -110,10 +110,10 @@
        </item>
        <item>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_2">
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Model number: </string>
+            <string>Serial nubmer: </string>
            </property>
           </widget>
          </item>
@@ -124,38 +124,31 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_3">
+         <item row="1" column="2">
+          <widget class="QLineEdit" name="lineEditSerialNumber">
+           <property name="placeholderText">
+            <string>HADES</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLineEdit" name="lineEditModelNumber">
+           <property name="placeholderText">
+            <string>HADES</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Serial nubmer: </string>
+            <string>Model number: </string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
-          <widget class="QComboBox" name="comboBox">
-           <item>
-            <property name="text">
-             <string>true</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>false</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit">
-           <property name="placeholderText">
-            <string>HADES</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit_2">
-           <property name="placeholderText">
-            <string>HADES</string>
+         <item row="2" column="2">
+          <widget class="QCheckBox" name="checkBoxEnableHMD">
+           <property name="text">
+            <string/>
            </property>
           </widget>
          </item>
