@@ -76,7 +76,27 @@ void controllers_pane::disable(){
     qDebug() << "disable controllers pane";
 }
 
-void controllers_pane::updateSettings(VRSettings * vrsettings){
-
+void controllers_pane::updateSettings(VRSettings * vrsettings)
+{
+    ui->checkBoxEnableControllers->setChecked(vrsettings->settingsMap["Controllers:EnableControllers"].toBool());
+    ui->checkBoxAccelerometers->setChecked(vrsettings->settingsMap["Controllers:UseAccelerometers"].toBool());
+    ui->comboBoxControllerType->setCurrentIndex(vrsettings->settingsMap["Controllers:ControllerMode"].toInt());
     emit updateControllerSettings(vrsettings);
 }
+
+void controllers_pane::on_checkBoxEnableControllers_toggled(bool checked)
+{
+    emit changeSettingMemory("Controllers:EnableControllers", checked);
+}
+
+void controllers_pane::on_comboBoxControllerType_currentIndexChanged(int index)
+{
+    emit changeSettingMemory("Controllers:ControllerMode", index);
+}
+
+
+void controllers_pane::on_checkBoxAccelerometers_toggled(bool checked)
+{
+    emit changeSettingMemory("Controllers:UseAccelerometers", checked);
+}
+

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "generic_pane.h"
+#include "generic_setting.h"
 
 namespace Ui {
 class others_pane;
@@ -22,6 +23,10 @@ public:
 private:
     Ui::others_pane *ui;
     VRSettings * vrsettings;
+    QVector<generic_setting *> auto_settings;
+
+signals:
+    void updateOtherSettings(VRSettings * vrsettings);
 };
 
 #endif // OTHERS_PANE_H

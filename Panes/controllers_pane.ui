@@ -23,9 +23,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-212</y>
-        <width>472</width>
-        <height>616</height>
+        <y>-175</y>
+        <width>483</width>
+        <height>583</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -136,12 +136,18 @@
            <property name="text">
             <string/>
            </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item row="2" column="1">
           <widget class="QCheckBox" name="checkBoxAccelerometers">
            <property name="text">
             <string/>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
            </property>
           </widget>
          </item>

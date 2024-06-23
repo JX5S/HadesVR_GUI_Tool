@@ -5,6 +5,7 @@
 #include <QSerialPortInfo>
 
 #include "generic_pane.h"
+#include "generic_setting.h"
 
 
 class Worker : public QObject
@@ -18,6 +19,10 @@ public slots:
 signals:
     void accX(int16_t accelX);
 };
+
+
+// =======================================
+
 
 namespace Ui {
 class hmd_pane;
@@ -36,6 +41,9 @@ public:
 
 public slots:
 
+signals:
+    void updateHMDSettings(VRSettings * vrsettings);
+
 private slots:
 
 
@@ -48,6 +56,7 @@ private slots:
 private:
     Ui::hmd_pane *ui;
     VRSettings * vrsettings;
+    QVector<generic_setting *> auto_settings;
 };
 
 #endif // HMD_PANE_H

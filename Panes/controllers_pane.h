@@ -24,6 +24,13 @@ public:
 signals:
     void updateControllerSettings(VRSettings * vrsettings);
 
+private slots:
+    void on_checkBoxEnableControllers_toggled(bool checked);
+
+    void on_comboBoxControllerType_currentIndexChanged(int index);
+
+    void on_checkBoxAccelerometers_toggled(bool checked);
+
 private:
     Ui::controllers_pane *ui;
     VRSettings * vrsettings;
