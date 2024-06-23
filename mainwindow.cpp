@@ -36,12 +36,12 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     panes = {
-        Pane(new Driver_pane(ui->stackedWidget), ui->pane_button_driver, "Driver setup", 0, ":/resources/icons/icons_driver.png"),
-        Pane(new hmd_pane(ui->stackedWidget), ui->pane_button_hmd, "HMD setup", 1, ":/resources/icons/icons_hmd.png"),
-        Pane(new screens_pane(ui->stackedWidget), ui->pane_button_screens, "Screens setup", 2, ":/resources/icons/icons_screens.png"),
-        Pane(new controllers_pane(ui->stackedWidget), ui->pane_button_controllers, "Controller setup", 3, ":/resources/icons/icons_controller.png"),
-        Pane(new others_pane(ui->stackedWidget), ui->pane_button_others, "Other settings", 4, ":/resources/icons/icons_other.png"),
-        Pane(new about_pane(ui->stackedWidget), ui->pane_button_about, "About program", 5, ":/resources/icons/icons_info.png"),
+        Pane(new Driver_pane(ui->stackedWidget, &vrsettings), ui->pane_button_driver, "Driver setup", 0, ":/resources/icons/icons_driver.png"),
+        Pane(new hmd_pane(ui->stackedWidget, &vrsettings), ui->pane_button_hmd, "HMD setup", 1, ":/resources/icons/icons_hmd.png"),
+        Pane(new screens_pane(ui->stackedWidget, &vrsettings), ui->pane_button_screens, "Screens setup", 2, ":/resources/icons/icons_screens.png"),
+        Pane(new controllers_pane(ui->stackedWidget, &vrsettings), ui->pane_button_controllers, "Controller setup", 3, ":/resources/icons/icons_controller.png"),
+        Pane(new others_pane(ui->stackedWidget, &vrsettings), ui->pane_button_others, "Other settings", 4, ":/resources/icons/icons_other.png"),
+        Pane(new about_pane(ui->stackedWidget, &vrsettings), ui->pane_button_about, "About program", 5, ":/resources/icons/icons_info.png"),
     };
 
     QObject::connect(ui->paneButtonGroup, &QButtonGroup::idClicked, this, &MainWindow::on_pane_button_clicked);

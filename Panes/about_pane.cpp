@@ -2,11 +2,12 @@
 #include "ui_about_pane.h"
 #include <QDebug>
 
-about_pane::about_pane(QWidget *parent)
+about_pane::about_pane(QWidget *parent, VRSettings * vrsettings)
     : generic_pane(parent)
     , ui(new Ui::about_pane)
 {
     ui->setupUi(this);
+    this->vrsettings = vrsettings;
 }
 
 about_pane::~about_pane()

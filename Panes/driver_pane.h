@@ -33,7 +33,7 @@ class Driver_pane : public generic_pane
     Q_OBJECT
 
 public:
-    explicit Driver_pane(QWidget *parent = nullptr);
+    explicit Driver_pane(QWidget *parent = nullptr, VRSettings * vrsettings = nullptr);
     ~Driver_pane();
     void enable();
     void disable();
@@ -75,6 +75,7 @@ private slots:
 
 private:
     Ui::Driver_pane *ui;
+    VRSettings * vrsettings;
     bool isSteamInstalled = false;
     bool isSteamVRInstalled = false;
     bool isHadesVRInstalled = false;

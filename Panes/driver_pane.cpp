@@ -13,11 +13,14 @@
 
 #include "include_ext/hidapi.h"
 
-Driver_pane::Driver_pane(QWidget *parent)
+Driver_pane::Driver_pane(QWidget * parent, VRSettings * vrsettings)
     : generic_pane(parent)
     , ui(new Ui::Driver_pane)
 {
     ui->setupUi(this);
+
+    this->vrsettings = vrsettings;
+
     reload_serial();
     reload_hid();
     connect(ui->refreshHID, &QPushButton::clicked, this, &Driver_pane::reload_hid);

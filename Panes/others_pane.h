@@ -13,7 +13,7 @@ class others_pane : public generic_pane
     Q_OBJECT
 
 public:
-    explicit others_pane(QWidget *parent = nullptr);
+    explicit others_pane(QWidget *parent = nullptr, VRSettings * vrsettings = nullptr);
     ~others_pane();
     void enable();
     void disable();
@@ -21,6 +21,7 @@ public:
 
 private:
     Ui::others_pane *ui;
+    VRSettings * vrsettings;
 };
 
 #endif // OTHERS_PANE_H

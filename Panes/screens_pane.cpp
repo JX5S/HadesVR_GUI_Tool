@@ -9,11 +9,72 @@
 #include <QGraphicsTextItem>
 #include <QStyleHints>>
 
-screens_pane::screens_pane(QWidget *parent)
+screens_pane::screens_pane(QWidget *parent, VRSettings * vrsettings)
     : generic_pane(parent)
     , ui(new Ui::screens_pane)
 {
     ui->setupUi(this);
+
+    this->vrsettings = vrsettings;
+
+
+    auto_settings = {
+        new bool_setting(nullptr, "Stereo", "Display:Stereo", true),
+        new bool_setting(nullptr, "IsDisplayOnDesktop", "Display:IsDisplayOnDesktop", true),
+        new bool_setting(nullptr, "IsDisplayReal", "Display:IsDisplayReal", true),
+        new bool_setting(nullptr, "IsSinglePanel", "Display:IsSinglePanel", false),
+        new bool_setting(nullptr, "MirrorImage", "Display:MirrorImage", false),
+        new number_setting(nullptr, "IPD", "Display:IPD", 0.061),
+        new number_setting(nullptr, "FOV", "Display:FOV", 95),
+        new number_setting(nullptr, "ScreenOffsetX", "Display:ScreenOffsetX", 0),
+        new number_setting(nullptr, "ScreenOffsetY", "Display:ScreenOffsetY", 0),
+        new number_setting(nullptr, "ViewportZoom", "Display:ViewportZoom", 1.0),
+        new number_setting(nullptr, "DistanceBetweenLenses", "Display:DistanceBetweenLenses", 0.061),
+        new number_setting(nullptr, "DistanceBetweenViews", "Display:DistanceBetweenViews", 0.061),
+        new number_setting(nullptr, "JankUVOffset", "Display:JankUVOffset", 0),
+        new number_setting(nullptr, "DisplayWidth", "Display:DisplayWidth", 0.12196),
+        new number_setting(nullptr, "DisplayCantAngle", "Display:DisplayCantAngle", 0),
+        new number_setting(nullptr, "RightEyeRollAngle", "Display:RightEyeRollAngle", 0),
+        new number_setting(nullptr, "LeftEyeRollAngle", "Display:LeftEyeRollAngle", 0),
+        new number_setting(nullptr, "secondsFromVsyncToPhotons", "Display:secondsFromVsyncToPhotons", 0.0138889),
+
+        new number_setting(nullptr, "Distortion: Red_K1", "Distortion:Red_K1", 0.91),
+        new number_setting(nullptr, "Distortion: Red_K2", "Distortion:Red_K2", 0.71),
+        new number_setting(nullptr, "Distortion: Red_K3", "Distortion:Red_K3", 0.11),
+        new number_setting(nullptr, "Distortion: Green_K1", "Distortion:Green_K1", 0.91),
+        new number_setting(nullptr, "Distortion: Green_K2", "Distortion:Green_K2", 0.93),
+        new number_setting(nullptr, "Distortion: Green_K3", "Distortion:Green_K3", 0),
+        new number_setting(nullptr, "Distortion: Blue_K1", "Distortion:Blue_K1",  0.91),
+        new number_setting(nullptr, "Distortion: Blue_K2", "Distortion:Blue_K2",  1.09),
+        new number_setting(nullptr, "Distortion: Blue_K3", "Distortion:Blue_K3",  0.4),
+    };
+
+
+    int i = 0;
+    for (auto setting : auto_settings){
+        QLabel * tempQLabel = new QLabel();
+        tempQLabel->setText(setting->user_facing_name);
+        ui->gridLayout_auto->addWidget(tempQLabel, i, 0);
+        connect(this, &screens_pane::updateScreenSettings, setting, &generic_setting::updateSetting);
+        connect(setting, &generic_setting::changeSettingMemory, vrsettings, &VRSettings::changeSetting);
+
+        if (bool_setting * derived_bool_setting = dynamic_cast<bool_setting *>(setting)) {
+            qDebug() << "Is bool setting.";
+            ui->gridLayout_auto->addWidget(derived_bool_setting->bool_checkBox, i, 1);
+        } else if (number_setting * derived_number_setting = dynamic_cast<number_setting *>(setting)) {
+            qDebug() << "Isn't bool setting";
+            ui->gridLayout_auto->addWidget(derived_number_setting->number_lineEdit, i, 1);
+        }
+        i++;
+    }
+
+    QSpacerItem * horizontalSpacer = new QSpacerItem(5, 5, QSizePolicy::Expanding);
+    ui->gridLayout_auto->addItem(horizontalSpacer, 0, 2);
+
+    ui->gridLayout_auto->setColumnMinimumWidth(0, 150);
+    ui->gridLayout_auto->setColumnMinimumWidth(1, 150);
+
+
     connect(ui->refreshButton, &QPushButton::clicked, this, &screens_pane::refresh);
     connect(&screenButtonGroup, &QButtonGroup::idClicked, this, &screens_pane::buttonClicked);
     screenButtonGroup.setExclusive(true);
@@ -153,7 +214,7 @@ void screens_pane::updateSettings(VRSettings * vrsettings){
     ui->lineEditWindowWidth->setText(vrsettings->settingsMap["Display:windowWidth"].toString());
     ui->lineEditWindowX->setText(vrsettings->settingsMap["Display:windowX"].toString());
     ui->lineEditWindowY->setText(vrsettings->settingsMap["Display:windowY"].toString());
-
+    emit updateScreenSettings(vrsettings);
 }
 
 void screens_pane::on_lineEditWindowWidth_textEdited(const QString &arg1)

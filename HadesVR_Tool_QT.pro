@@ -17,6 +17,7 @@ SOURCES += \
     Panes/others_pane.cpp \
     Panes/screens_pane.cpp \
     connection_handler.cpp \
+    generic_setting.cpp \
     main.cpp \
     mainwindow.cpp \
     vrsettings.cpp
@@ -31,6 +32,7 @@ HEADERS += \
     Panes/others_pane.h \
     Panes/screens_pane.h \
     connection_handler.h \
+    generic_setting.h \
     include_ext/hidapi.h \
     mainwindow.h \
     vrsettings.h

@@ -28,7 +28,7 @@ class hmd_pane : public generic_pane
     Q_OBJECT
 
 public:
-    explicit hmd_pane(QWidget *parent = nullptr);
+    explicit hmd_pane(QWidget *parent = nullptr, VRSettings * vrsettings = nullptr);
     ~hmd_pane();
     void enable();
     void disable();
@@ -47,6 +47,7 @@ private slots:
 
 private:
     Ui::hmd_pane *ui;
+    VRSettings * vrsettings;
 };
 
 #endif // HMD_PANE_H

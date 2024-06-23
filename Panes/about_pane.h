@@ -13,7 +13,7 @@ class about_pane : public generic_pane
     Q_OBJECT
 
 public:
-    explicit about_pane(QWidget *parent = nullptr);
+    explicit about_pane(QWidget *parent = nullptr, VRSettings * vrsettings = nullptr);
     ~about_pane();
     void enable();
     void disable();
@@ -21,6 +21,7 @@ public:
 
 private:
     Ui::about_pane *ui;
+    VRSettings * vrsettings;
 };
 
 #endif // ABOUT_PANE_H

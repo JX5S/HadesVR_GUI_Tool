@@ -47,11 +47,14 @@ void Worker::doWork() {
     }
 }
 
-hmd_pane::hmd_pane(QWidget *parent)
+hmd_pane::hmd_pane(QWidget *parent, VRSettings * vrsettings)
     : generic_pane(parent)
     , ui(new Ui::hmd_pane)
 {
     ui->setupUi(this);
+
+    this->vrsettings = vrsettings;
+
     ui->quickWidget->setClearColor(palette().color(QPalette::Window));
     QThread * workerThread = new QThread();
     Worker * worker = new Worker;
