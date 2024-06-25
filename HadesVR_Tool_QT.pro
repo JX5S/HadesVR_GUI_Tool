@@ -16,7 +16,6 @@ SOURCES += \
     Panes/hmd_pane.cpp \
     Panes/others_pane.cpp \
     Panes/screens_pane.cpp \
-    connection_handler.cpp \
     generic_setting.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -31,7 +30,6 @@ HEADERS += \
     Panes/hmd_pane.h \
     Panes/others_pane.h \
     Panes/screens_pane.h \
-    connection_handler.h \
     generic_setting.h \
     include_ext/hidapi.h \
     mainwindow.h \
@@ -48,6 +46,7 @@ FORMS += \
 
 LIBS += \
     # no idea why $$PWD is needed, but it doesn't compile without it for me. https://stackoverflow.com/questions/55513042/how-to-link-external-dlls-properly-in-qt-creator
+    # used for HID device selection
     $$PWD/dlls/hidapi.dll
 
 # Default rules for deployment.
@@ -56,7 +55,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    qml.qrc \
     resources.qrc
 
 DISTFILES += \

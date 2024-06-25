@@ -6,12 +6,14 @@
 #include <QString>
 #include <QtCore/QObject>
 
+// Class for holding current settings. Works as a map, where key is "category:setting". Also handles JSONs
+
 class VRSettings : public QObject
 {
     Q_OBJECT
 public:
     VRSettings();
-    ~VRSettings();
+    ~VRSettings(){}
 
     QString hadesSettingsPath = "";
 
@@ -22,10 +24,10 @@ public slots:
     void ReadFromDisk();
     void SaveToDisk();
 
-    void changeSetting(QString key, QVariant value);
+    void changeSetting(QString key, QVariant value); // ui element changes setting
 
 signals:
-    void settingsHaveChagned(VRSettings * vrsettings);
+    void settingsHaveChagned(VRSettings * vrsettings); // Notitfy UI elements
 
 private:
 };

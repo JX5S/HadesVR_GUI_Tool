@@ -77,7 +77,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pane_button_clicked(int id)
 {
     static int old_id = 0;
-    panes[old_id].pane_widget->disable();
+    panes[old_id].pane_widget->disable(); // used to for example turn off timers, like the one continually checking Steam/SteamVR/HadesVR installation status
     old_id = id;
     ui->stackedWidget->setCurrentWidget(panes[id].pane_widget);
     panes[id].pane_widget->enable();

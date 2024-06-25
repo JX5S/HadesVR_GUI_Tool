@@ -6,6 +6,8 @@
 #include <QToolButton>
 #include "generic_pane.h"
 
+// Holds information about a pane. Just a basic struct, not even a QOBJECT
+
 struct Pane{
     generic_pane * pane_widget;
     QToolButton * pane_button;

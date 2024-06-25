@@ -5,6 +5,8 @@
 #include <QVariant>
 #include "vrsettings.h"
 
+// Used for quick filling of various settings. Others are done by hand in the .ui files
+
 class generic_setting : public QObject
 {
     Q_OBJECT
@@ -15,15 +17,18 @@ public:
     QString setting_name;
 
 signals:
+    // main signal that connects various UI elements to the single vrsettings instance
     void changeSettingMemory(QString key, QVariant value);
 
 public slots:
+    // a general signal "settings have changed; reload" - ran on start or when "reload from disk" clicked
     virtual void updateSetting(VRSettings * vrsettings) = 0;
 
 signals:
 };
 
 
+// Setting that includes a name and is a boolean value. Creates a checkbox
 
 #include <QCheckBox>
 
@@ -41,6 +46,7 @@ public slots:
 };
 
 
+// Setting that includes a name and a number value. Creates a lineedit
 
 #include <QLineEdit>
 
@@ -56,7 +62,6 @@ public slots:
     void setting_changed(QString arg);
     void updateSetting(VRSettings * vrsettings);
 };
-
 
 
 #endif // GENERIC_SETTING_H

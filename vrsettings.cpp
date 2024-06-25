@@ -3,8 +3,7 @@
 #include <QDebug>
 #include <QMessageBox>
 
-// Here be dragons. Read at your own risk
-
+// Initializes settings to default using internal json
 VRSettings::VRSettings() { // Used as reference, along with QT documentation: https://stackoverflow.com/a/18770335
     QString settingsFile(":/resources/default_settings.json");
     QFile file;
@@ -36,8 +35,6 @@ VRSettings::VRSettings() { // Used as reference, along with QT documentation: ht
     }
     qDebug() << settingsMap;
 }
-
-VRSettings::~VRSettings(){}
 
 void VRSettings::ReadFromDisk(){
     if (hadesSettingsPath == ""){
@@ -106,6 +103,7 @@ void VRSettings::SaveToDisk(){
     writeFile.setFileName(hadesSettingsPath);
     writeFile.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate);
 
+    // Here be dragons. Read at your own risk
     writeFile.write("{\n");
     bool flag = false;
     bool flag2 = false;
@@ -174,4 +172,3 @@ void VRSettings::changePath(QString path){
 void VRSettings::changeSetting(QString key, QVariant value){
     settingsMap[key] = value;
 }
-

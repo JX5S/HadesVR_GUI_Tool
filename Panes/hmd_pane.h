@@ -8,22 +8,6 @@
 #include "generic_setting.h"
 
 
-class Worker : public QObject
-{
-    Q_OBJECT
-public:
-    Worker(){}
-    ~Worker(){}
-public slots:
-    void doWork();
-signals:
-    void accX(int16_t accelX);
-};
-
-
-// =======================================
-
-
 namespace Ui {
 class hmd_pane;
 }
@@ -45,8 +29,6 @@ signals:
     void updateHMDSettings(VRSettings * vrsettings);
 
 private slots:
-
-
     void on_checkBoxEnableHMD_toggled(bool checked);
 
     void on_lineEditSerialNumber_textEdited(const QString &arg1);

@@ -4,6 +4,8 @@
 #include <QWidget>
 #include "vrsettings.h"
 
+// Defines functions available to all panes. Makes it possible to have an array of type "generic_pane*" include all panes
+
 class generic_pane : public QWidget
 {
     Q_OBJECT
