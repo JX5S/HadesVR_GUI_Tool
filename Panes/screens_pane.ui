@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>764</width>
-        <height>661</height>
+        <width>768</width>
+        <height>665</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -168,7 +168,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Windpw height</string>
+            <string>Window height</string>
            </property>
           </widget>
          </item>
