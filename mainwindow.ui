@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>HadesVR GUI Tool</string>
   </property>
   <property name="iconSize">
    <size>
@@ -67,7 +67,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-202</y>
+          <y>0</y>
           <width>484</width>
           <height>588</height>
          </rect>
