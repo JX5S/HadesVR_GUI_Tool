@@ -11,6 +11,12 @@ There are several annoying values to find which this tool aims to simplify. Name
 - Screen selection is done by simply choosing from a list
 All other settings are also present
 
+# Screenshots
+<p float="left">
+  <img src="https://github.com/JX5S/HadesVR_GUI_Tool/assets/40174559/c4b4e3b8-4f88-4a48-a9bd-3c3c142ed683" width="500" />
+  <img src="https://github.com/JX5S/HadesVR_GUI_Tool/assets/40174559/cb4751d9-f75e-43c9-bf23-8edfe7d04bb4" width="500" /> 
+</p>
+
 # Compiling
 It has been tested with mingw-64 and QT6.7. Currently compiler choice shouldn't matter. I compiled it using QT Creator. Compiling for Linux doesn't make sense, since HadesVR is windows-only.
 
